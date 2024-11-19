@@ -1,7 +1,7 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Movie } from "../../type";
 import MovieCard from "./MovieCard";
-import { cn } from "@/lib/utils";
 
 type Props = {
   title?: string;
@@ -30,7 +30,7 @@ const MovieContainer = ({ title, movies, isVertical }: Props) => {
           isVertical && "flex-col space-x-0 space-y-12"
         )}
       >
-        {movies.length ? (
+        {movies?.length ? (
           isVertical ? (
             movies?.map((movie) => (
               <div

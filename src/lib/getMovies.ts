@@ -10,7 +10,7 @@ const fetcher = async (url: URL, cacheTime?: number) => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_KEY}`,
+      Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_KEY ?? process.env.NEXT_PUBLIC_TMDB_READ_ACCESS_KEY}`,
     },
     next: {
       revalidate: cacheTime || 60 * 60 * 24,

@@ -1,3 +1,4 @@
+"use client";
 import MovieContainer from "@/components/MovieContainer";
 import VideoPlayer from "@/components/VideoPlayer";
 import { getImagePath } from "@/lib/getImagePath";
@@ -6,13 +7,9 @@ import {
   getMovieVideos,
   getPopularMovies,
 } from "@/lib/getMovies";
-import { Metadata } from "next";
 import Image from "next/image";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Movie Studio Clone || Movie Details page",
-};
 
 interface Props {
   params: {
@@ -20,22 +17,57 @@ interface Props {
   };
 }
 
-const MovieDetails = async ({ params: { id } }: Props) => {
-  const movies = await getMovieVideos(id);
-  const videos = movies.map((movie: any) => ({
-    id: movie.id,
-    iso_639_1: movie.iso_639_1,
-    iso_3166_1: movie.iso_3166_1,
-    key: movie.key,
-    name: movie.name,
-    official: movie.official,
-    published_at: movie.published_at,
-    site: movie.site,
-    size: movie.size,
-    type: movie.type,
-  }));
-  const details: any = await getMovieDetails(id);
-  const popoularMovies = await getPopularMovies();
+const MovieDetails = ({ params }: Props) => {
+  const [id, setId] = useState('');
+  
+  const [movies, setMovies] = useState([]);
+  const [details, setDetails] = useState({});
+  const [videos, setVideos] = useState([]);
+  const [popoularMovies, setPopoularMovies] = useState([]);
+
+  useEffect(()=>{
+    const getid = async () => {
+      const paramid = use(params.id)
+      setId(paramid);
+    };
+    getid();
+  }, [params]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const movieVideos = await getMovieVideos(id);
+        setMovies(movieVideos);
+
+        const detls: any = await getMovieDetails(id);
+        setDetails(detls);
+
+        const vids = movies.map((movie: any) => ({
+          id: movie.id,
+          iso_639_1: movie.iso_639_1,
+          iso_3166_1: movie.iso_3166_1,
+          key: movie.key,
+          name: movie.name,
+          official: movie.official,
+          published_at: movie.published_at,
+          site: movie.site,
+          size: movie.size,
+          type: movie.type,
+        }));
+        setVideos(videos);
+
+        const pops: any = await getPopularMovies();
+        setPopoularMovies(pops);
+
+      } catch (error) {
+        console.error("Error fetching movie videos:", error);
+      }
+    };
+
+    if (id?.length) {
+      fetchMovies();
+    }
+  }, [id]);
 
   return (
     <div>
@@ -44,7 +76,7 @@ const MovieDetails = async ({ params: { id } }: Props) => {
           <div className="w-full lg:w-1/2 min-h-96 rounded-md overflow-hidden group">
             <Image
               src={getImagePath(details?.backdrop_path)}
-              alt={details?.title}
+              alt={details?.title ?? ''}
               width={1920}
               height={1080}
               className="w-full h-full object-cover shadow-md shadow-gray-900 drop-shadow-xl group-hover:scale-110 duration-500"
@@ -77,7 +109,7 @@ const MovieDetails = async ({ params: { id } }: Props) => {
             </p>
             <p className="text-gray-200 text-sm">
               Genres:{" "}
-              {details?.genres.map((item: any) => (
+              {details?.genres?.map((item: any) => (
                 <span key={item?.id} className="text-white font-medium mr-1">
                   {item?.name},
                 </span>
@@ -90,11 +122,10 @@ const MovieDetails = async ({ params: { id } }: Props) => {
             <p className="text-gray-200 text-sm">
               Status:{" "}
               <span
-                className={`font-medium ${
-                  details?.status === "Released"
+                className={`font-medium ${details?.status === "Released"
                     ? "text-green-500"
                     : "text-red-500"
-                }`}
+                  }`}
               >
                 {details.status}
               </span>
@@ -107,7 +138,7 @@ const MovieDetails = async ({ params: { id } }: Props) => {
         <MovieContainer
           movies={popoularMovies}
           title="Popular Movies"
-          isVertical
+          
         />
       </div>
     </div>
