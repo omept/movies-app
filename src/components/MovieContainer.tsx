@@ -26,7 +26,7 @@ const MovieContainer = ({ title, movies, isVertical }: Props) => {
       </div>
       <div
         className={cn(
-          "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5 lg:px-10 py-5 scrollbar-hide",
+          "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5 lg:px-10 py-5 scrollbar-hide",
           isVertical && "flex-col space-x-0 space-y-12"
         )}
       >

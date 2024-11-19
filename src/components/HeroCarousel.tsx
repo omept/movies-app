@@ -1,21 +1,27 @@
 "use client";
-import useEmblaCarousel from "embla-carousel-react";
-import AutoPlay from "embla-carousel-autoplay";
 import { Movie } from "../../type";
 import Image from "next/image";
 import { getImagePath } from "@/lib/getImagePath";
+import { useRouter } from "next/navigation";
 
 interface Props {
   movies: Movie[];
 }
 
 const HeroCarousel = ({ movies }: Props) => {
-  const [emblaRef] = useEmblaCarousel({ loop: false }, [AutoPlay()]);
+  const router = useRouter();
+  const hanldeRoute = (id: number) => {
+    router.push(`/movie/${id}`);
+  };
   return (
-    <div className="overflow-hidden cursor-pointer relative" ref={emblaRef}>
-      <div className="flex">
+    <div className="overflow-scroll cursor-pointer relative">
+      <div className="flex w-3/4">
         {movies?.map((movie) => (
-          <div key={movie?.id} className="flex-full min-w-0 relative">
+          <div
+            onClick={() => hanldeRoute(movie?.id)}
+            key={movie?.id}
+            className="flex-full min-w-0 relative"
+          >
             <Image
               src={getImagePath(movie?.backdrop_path, true)}
               alt={movie?.title}

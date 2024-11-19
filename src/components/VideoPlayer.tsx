@@ -13,6 +13,7 @@ const VideoPlayer = ({ videos }: Videos) => {
   return (
     <div>
       <h2 className="text-xl font-bold mb-5">Offical videos from Youtube:</h2>
+      {!videos?.length ? <h3>No videos Availlable</h3> : <></>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {videos.map((video) => (
           <div

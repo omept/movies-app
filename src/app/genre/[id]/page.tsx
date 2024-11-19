@@ -18,7 +18,7 @@ const GenrePage = async ({
   return (
     <div className="py-10 max-w-screen-xl mx-auto">
       <h2 className="text-4xl font-bold px-10 mb-5">Results for {genre}</h2>
-      <MovieContainer movies={movies} title="Genre" isVertical />
+      <MovieContainer movies={movies} title="Genre" />
     </div>
   );
 };
