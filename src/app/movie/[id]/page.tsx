@@ -76,7 +76,7 @@ const MovieDetails = ({ params }: Props) => {
       })
       .filter(Boolean);
     localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
-    alert("saved");
+    alert("Saved to favourites.");
   };
 
   return (
