@@ -57,7 +57,8 @@ const MovieDetails = ({ params }: Props) => {
     if (!details) return;
     const movie = {
       id: details?.id,
-      img: getImagePath(details?.backdrop_path),
+      title: details?.title,
+      img: details?.backdrop_path,
       release: details?.release_date,
       rating: details?.vote_average,
     };
