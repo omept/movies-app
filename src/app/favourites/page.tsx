@@ -1,11 +1,4 @@
 import MovieContainer from "@/components/MovieContainer";
-import {
-  getNowPlayingMovies,
-  getPopularMovies,
-  getTopRatedMovies,
-  getUpcomingMovies,
-} from "@/lib/getMovies";
-
 interface Props {
   searchParams: {
     title: string;

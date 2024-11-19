@@ -53,6 +53,32 @@ const MovieDetails = ({ params }: Props) => {
     }
   }, [id]);
 
+  const addToFav = (details: any) => {
+    if (!details) return;
+    const movie = {
+      id: details?.id,
+      img: getImagePath(details?.backdrop_path),
+      release: details?.release_date,
+      rating: details?.vote_average,
+    };
+    const storedMovies =
+      JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
+    const moviesSet = new Set(storedMovies.map(JSON.stringify)); // Use JSON.stringify for comparison
+    moviesSet.add(JSON.stringify(movie));
+    const updatedMovies = Array.from(moviesSet)
+      .map((movieString: any) => {
+        try {
+          return JSON.parse(movieString); // Safely parse JSON strings
+        } catch (e) {
+          console.error("Failed to parse movie:", movieString, e);
+          return null; // Handle or skip invalid entries
+        }
+      })
+      .filter(Boolean);
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
+    alert("saved");
+  };
+
   return (
     <div>
       <div className="px-10">
@@ -106,6 +132,16 @@ const MovieDetails = ({ params }: Props) => {
                 {details.status}
               </span>
             </p>
+            {details ? (
+              <button
+                onClick={() => addToFav(details)}
+                className="font-bold py-2 px-4 rounded  bg-blue-500 text-white hover:bg-blue-700"
+              >
+                Add to Favouroite
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
