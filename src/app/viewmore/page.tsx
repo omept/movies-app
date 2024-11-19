@@ -12,9 +12,9 @@ interface Props {
   };
 }
 
-const ViewMorePage = async ({ searchParams: { title } }: Props) => {
+const ViewMorePage = async ({ searchParams }: Props) => {
   let movies: any = null;
-
+  const { title } = await searchParams;
   if (title === "Now Playing") {
     movies = await getNowPlayingMovies();
   } else if (title === "Upcoming") {
@@ -23,12 +23,14 @@ const ViewMorePage = async ({ searchParams: { title } }: Props) => {
     movies = await getTopRatedMovies();
   } else if (title === "Popular") {
     movies = await getPopularMovies();
+  } else {
+    movies = [];
   }
 
   return (
     <div className="py-10">
       <h2 className="text-4xl font-bold px-10 mb-5">Results of {title}</h2>
-      <MovieContainer movies={movies} isVertical={true} />
+      <MovieContainer movies={movies} isVertical={false} />
     </div>
   );
 };
