@@ -3,7 +3,7 @@ import Link from "next/link";
 import GenreDropDown from "./GenreDropDown";
 import SearchInput from "./SearchInput";
 import ThemeToggler from "./ThemeToggler";
-import logo from '../assets/HUB.png'
+import logo from "../assets/HUB.png";
 
 const Header = () => {
   return (
@@ -21,8 +21,15 @@ const Header = () => {
       </Link>
       {/* Others */}
       <div className="text-white flex space-x-2 items-center">
+        <Link
+          href={"/favourites"}
+          className="bg-purple-700 px-3 py-2 mr-4 text-sm"
+        >
+          Favourites
+        </Link>
         {/* Genre */}
         <GenreDropDown />
+
         {/* Search */}
         <SearchInput />
         {/* Theme */}
