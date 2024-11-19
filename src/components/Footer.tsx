@@ -95,18 +95,24 @@ const Footer = () => {
           />
         </Link>
         <p className="text-gray-200 text-sm leading-6 tracking-wide mt-5 max-w-72">
-          Browse Latest Movies and shows at MooviesHub!
+          Browse Latest Movies and shows!
         </p>
       </div>
       <div className="mx-auto">
         <h2 className="text-base uppercase font-bold text-white tracking-wide border-b border-b-gray-600 py-2 mb-5 relative">
-          Connect with Us
+          Contact
           <span className="w-16 h-1 bg-purple-700 inline-block absolute left-0 -bottom-[1.5px] z-10" />
         </h2>
         <div className="text-gray-300 text-sm flex flex-col gap-2">
           <p>
-            Phone:{" "}
-            <span className="text-white font-medium">+2348163229099</span>
+            WhatsApp:{" "}
+            <a
+              href="https://wa.me/2348179319079"
+              target="_blank"
+              className="text-white font-medium"
+            >
+              https://wa.me/2348179319079
+            </a>
           </p>
           <p>
             Email:{" "}
