@@ -1,15 +1,9 @@
 "use client";
 import MovieContainer from "@/components/MovieContainer";
-import VideoPlayer from "@/components/VideoPlayer";
 import { getImagePath } from "@/lib/getImagePath";
-import {
-  getMovieDetails,
-  getMovieVideos,
-  getPopularMovies,
-} from "@/lib/getMovies";
+import { getMovieDetails, getPopularMovies } from "@/lib/getMovies";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import { Movie } from "../../../../type";
 
 interface Props {
   params: {
@@ -59,8 +53,8 @@ const MovieDetails = ({ params }: Props) => {
       id: details?.id,
       title: details?.title,
       img: details?.backdrop_path,
-      release: details?.release_date,
-      rating: details?.vote_average,
+      release_date: details?.release_date,
+      vote_average: details?.vote_average,
     };
     const storedMovies =
       JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
