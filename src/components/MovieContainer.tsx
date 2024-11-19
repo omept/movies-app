@@ -44,6 +44,7 @@ const MovieContainer = ({ title, movies, isVertical }: Props) => {
                   </p>
                   <hr className="mb-3" />
                   <p>{movie?.overview}</p>
+                  <p> 📈 {movie?.vote_average}</p>
                 </div>
               </div>
             ))

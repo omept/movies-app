@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../assets/HUB.png"
+import logo from "../assets/HUB.png";
 
 const infoArray = [
   {
@@ -78,7 +78,7 @@ const Information = ({ contact }: { contact?: boolean }) => {
 
 const Footer = () => {
   return (
-    <div className="bg-[#191919] px-10 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div className="bg-[#191919] px-10 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
       <div>
         <h2 className="text-base uppercase font-bold text-white tracking-wide border-b border-b-gray-600 py-2 mb-5 relative">
           About us{" "}
@@ -98,33 +98,20 @@ const Footer = () => {
           Browse Latest Movies and shows at MooviesHub!
         </p>
       </div>
-      <div>
-        <h2 className="text-base uppercase font-bold text-white tracking-wide border-b border-b-gray-600 py-2 mb-5 relative">
-          Information
-          <span className="w-16 h-1 bg-purple-700 inline-block absolute left-0 -bottom-[1.5px] z-10" />
-        </h2>
-        <Information />
-      </div>
-      <div>
-        <h2 className="text-base uppercase font-bold text-white tracking-wide border-b border-b-gray-600 py-2 mb-5 relative">
-          Category
-          <span className="w-16 h-1 bg-purple-700 inline-block absolute left-0 -bottom-[1.5px] z-10" />
-        </h2>
-        <Information contact={true} />
-      </div>
-      <div>
+      <div className="mx-auto">
         <h2 className="text-base uppercase font-bold text-white tracking-wide border-b border-b-gray-600 py-2 mb-5 relative">
           Connect with Us
           <span className="w-16 h-1 bg-purple-700 inline-block absolute left-0 -bottom-[1.5px] z-10" />
         </h2>
         <div className="text-gray-300 text-sm flex flex-col gap-2">
           <p>
-            Phone: <span className="text-white font-medium">+91 9828477222</span>
+            Phone:{" "}
+            <span className="text-white font-medium">+2348163229099</span>
           </p>
           <p>
             Email:{" "}
             <span className="text-white font-medium">
-              sharmaslov@gmail.com
+              georgetheprogrammer@gmail.com
             </span>
           </p>
         </div>
