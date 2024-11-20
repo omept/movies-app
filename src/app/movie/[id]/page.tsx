@@ -3,15 +3,12 @@ import MovieContainer from "@/components/MovieContainer";
 import { getImagePath } from "@/lib/getImagePath";
 import { getMovieDetails, getPopularMovies } from "@/lib/getMovies";
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Movie } from "../../../../type";
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
+type Params = Promise<{ id: string }>;
 
-const MovieDetails = ({ params }: Props) => {
+const MovieDetails = ({ params }: { params: Params }) => {
   const [id, setId] = useState("");
   const [details, setDetails] = useState<any>({});
   const [popoularMovies, setPopoularMovies] = useState([]);
@@ -40,7 +37,7 @@ const MovieDetails = ({ params }: Props) => {
         setDetails(detls);
       } catch (error) {
         console.error("Error fetching movie videos:", error);
-        alert("Could not fetch this movie.")
+        alert("Could not fetch this movie.");
       }
     };
 
@@ -51,9 +48,10 @@ const MovieDetails = ({ params }: Props) => {
 
   useEffect(() => {
     try {
-      const storedMovies = JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
+      const storedMovies =
+        JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
       const isFavorite = storedMovies.some(
-        (movie: { id: string | number; }) => movie.id == id
+        (movie: { id: string | number }) => movie.id == id
       );
       setIsFavorite(isFavorite);
     } catch (error) {
@@ -63,13 +61,7 @@ const MovieDetails = ({ params }: Props) => {
 
   const addToFav = (details: any) => {
     if (!details) return;
-    const movie = {
-      id: details?.id,
-      title: details?.title,
-      backdrop_path: details?.backdrop_path,
-      release_date: details?.release_date,
-      vote_average: details?.vote_average,
-    };
+    const movie: Movie = details;
     const storedMovies =
       JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
     const moviesSet = new Set(storedMovies.map(JSON.stringify)); // Use JSON.stringify for comparison
@@ -101,25 +93,29 @@ const MovieDetails = ({ params }: Props) => {
     setIsFavorite(false);
   };
 
-  const favBlock = (details: any, delFromFav: (id: string | number) => void, addToFav: (details: any) => void) => {
-      return isFavorite ? (
-        <button
-          onClick={() => {
-            delFromFav(details.id);
-          }}
-          className="font-bold py-2 px-4 rounded bg-red-500 text-white hover:bg-red-700"
-        >
-          Remove from Favourite
-        </button>
-      ) : (
-        <button
-          onClick={() => addToFav(details)}
-          className="font-bold py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-700"
-        >
-          Add to Favourite
-        </button>
-      );
-  }
+  const favBlock = (
+    details: any,
+    delFromFav: (id: string | number) => void,
+    addToFav: (details: any) => void
+  ) => {
+    return isFavorite ? (
+      <button
+        onClick={() => {
+          delFromFav(details.id);
+        }}
+        className="font-bold py-2 px-4 rounded bg-red-500 text-white hover:bg-red-700"
+      >
+        Remove from Favourite
+      </button>
+    ) : (
+      <button
+        onClick={() => addToFav(details)}
+        className="font-bold py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-700"
+      >
+        Add to Favourite
+      </button>
+    );
+  };
 
   return (
     <div>
@@ -165,21 +161,16 @@ const MovieDetails = ({ params }: Props) => {
             <p className=" text-sm">
               Status:{" "}
               <span
-                className={`font-medium ${details?.status === "Released"
-                  ? "text-green-500"
-                  : "text-red-500"
-                  }`}
+                className={`font-medium ${
+                  details?.status === "Released"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
               >
                 {details.status}
               </span>
             </p>
-            {details?.id ? (
-              <>
-                {favBlock(details, delFromFav, addToFav)}
-              </>
-            ) : (
-              ""
-            )}
+            {details?.id ? <>{favBlock(details, delFromFav, addToFav)}</> : ""}
           </div>
         </div>
       </div>
@@ -191,5 +182,3 @@ const MovieDetails = ({ params }: Props) => {
 };
 
 export default MovieDetails;
-
-

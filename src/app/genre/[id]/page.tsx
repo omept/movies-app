@@ -1,19 +1,18 @@
 import MovieContainer from "@/components/MovieContainer";
 import { getDiscoverMovies } from "@/lib/getMovies";
 
-interface Props {
-  params: {
-    id: string;
-  };
-  searchParams: {
-    genre: string;
-  };
-}
+type Params = Promise<{ id: string }>;
 
 const GenrePage = async ({
-  params: { id },
-  searchParams: { genre },
-}: Props) => {
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const { id } = await params;
+  const genre = (await searchParams).genre;
+
   const movies = await getDiscoverMovies(id);
   return (
     <div className="py-10 max-w-screen-xl mx-auto">

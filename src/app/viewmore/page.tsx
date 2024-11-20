@@ -6,13 +6,11 @@ import {
   getUpcomingMovies,
 } from "@/lib/getMovies";
 
-interface Props {
-  searchParams: {
-    title: string;
-  };
-}
+type Props = Promise<{
+  title: string;
+}>;
 
-const ViewMorePage = async ({ searchParams }: Props) => {
+const ViewMorePage = async ({ searchParams }: { searchParams: Props }) => {
   let movies: any = null;
   const { title } = await searchParams;
   if (title === "Now Playing") {
@@ -30,7 +28,7 @@ const ViewMorePage = async ({ searchParams }: Props) => {
   return (
     <div className="py-10">
       <h2 className="text-4xl font-bold px-10 mb-5">Results of {title}</h2>
-      <MovieContainer movies={movies} isVertical={false} />
+      <MovieContainer movies={movies} isVertical={false} hideViewMore />
     </div>
   );
 };
