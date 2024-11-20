@@ -14,7 +14,7 @@ const HeroCarousel = ({ movies }: Props) => {
     router.push(`/movie/${id}`);
   };
   return (
-    <div className="overflow-scroll cursor-pointer relative">
+    <div className="overflow-scroll cursor-pointer relative no-scrollbar">
       <div className="flex w-3/4">
         {movies?.map((movie) => (
           <div

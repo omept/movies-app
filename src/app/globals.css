@@ -2,3 +2,11 @@
   @tailwind components;
   @tailwind utilities;
   
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+  }
+  
+  .no-scrollbar {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer 10+ */
+  }
