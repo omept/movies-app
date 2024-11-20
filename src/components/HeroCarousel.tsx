@@ -35,7 +35,7 @@ const HeroCarousel = ({ movies }: Props) => {
           </div>
         ))}
       </div>
-      <div className="absolute top-0 left-0 inset-0 bg-gradient-to-b from-gray-900/10 via-gray-900/30 to-gray-300 dark:to-[#121212]" />
+     
     </div>
   );
 };

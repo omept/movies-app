@@ -40,6 +40,7 @@ const MovieDetails = ({ params }: Props) => {
         setDetails(detls);
       } catch (error) {
         console.error("Error fetching movie videos:", error);
+        alert("Could not fetch this movie.")
       }
     };
 
