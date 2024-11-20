@@ -12,17 +12,17 @@ A modern Movies website built with **Next.js**, **Tailwind CSS**, and **TypeScri
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/himuexe/Movie-App/main/moovieshub/src/assets/Capture.PNG">
+<img src="https://raw.githubusercontent.com/omept/movies-app/main/src/assets/Capture.PNG">
 
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/himuexe/Movie-App/main/moovieshub/src/assets/Capture2.PNG">
+<img src="https://raw.githubusercontent.com/omept/movies-app/main/src/assets/Capture2.PNG">
 
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/himuexe/Movie-App/main/moovieshub/src/assets/Capture3.PNG">
+<img src="https://raw.githubusercontent.com/omept/movies-app/main/src/assets/Capture3.PNG">
 
 
 
