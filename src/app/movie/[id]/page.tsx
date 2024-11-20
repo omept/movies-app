@@ -15,6 +15,7 @@ const MovieDetails = ({ params }: Props) => {
   const [id, setId] = useState("");
   const [details, setDetails] = useState<any>({});
   const [popoularMovies, setPopoularMovies] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const getid = async () => {
@@ -47,6 +48,18 @@ const MovieDetails = ({ params }: Props) => {
     }
   }, [id]);
 
+  useEffect(() => {
+    try {
+      const storedMovies = JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
+      const isFavorite = storedMovies.some(
+        (movie: { id: string | number; }) => movie.id == id
+      );
+      setIsFavorite(isFavorite);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [id]);
+
   const addToFav = (details: any) => {
     if (!details) return;
     const movie = {
@@ -72,7 +85,40 @@ const MovieDetails = ({ params }: Props) => {
       .filter(Boolean);
     localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
     alert("Saved to favourites.");
+    setIsFavorite(true);
   };
+
+  const delFromFav = (id: string | number) => {
+    if (!id) return;
+    const storedMovies =
+      JSON.parse(localStorage.getItem("favoriteMovies") ?? "[]") || [];
+    const updatedMovies = storedMovies.filter(
+      (movie: { id: string | number }) => movie.id != id
+    );
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
+    alert("Removed from favourites.");
+    setIsFavorite(true);
+  };
+
+  const favBlock = (details: any, delFromFav: (id: string | number) => void, addToFav: (details: any) => void) => {
+      return isFavorite ? (
+        <button
+          onClick={() => {
+            delFromFav(details.id);
+          }}
+          className="font-bold py-2 px-4 rounded bg-red-500 text-white hover:bg-red-700"
+        >
+          Remove from Favourite
+        </button>
+      ) : (
+        <button
+          onClick={() => addToFav(details)}
+          className="font-bold py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-700"
+        >
+          Add to Favourite
+        </button>
+      );
+  }
 
   return (
     <div>
@@ -118,22 +164,18 @@ const MovieDetails = ({ params }: Props) => {
             <p className=" text-sm">
               Status:{" "}
               <span
-                className={`font-medium ${
-                  details?.status === "Released"
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
+                className={`font-medium ${details?.status === "Released"
+                  ? "text-green-500"
+                  : "text-red-500"
+                  }`}
               >
                 {details.status}
               </span>
             </p>
-            {details ? (
-              <button
-                onClick={() => addToFav(details)}
-                className="font-bold py-2 px-4 rounded  bg-blue-500 text-white hover:bg-blue-700"
-              >
-                Add to Favouroite
-              </button>
+            {details?.id ? (
+              <>
+                {favBlock(details, delFromFav, addToFav)}
+              </>
             ) : (
               ""
             )}
@@ -148,3 +190,5 @@ const MovieDetails = ({ params }: Props) => {
 };
 
 export default MovieDetails;
+
+

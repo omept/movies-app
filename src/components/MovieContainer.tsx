@@ -7,21 +7,24 @@ type Props = {
   title?: string;
   movies: Movie[];
   isVertical?: boolean;
+  hideViewMore?: boolean;
 };
 
-const MovieContainer = ({ title, movies, isVertical }: Props) => {
+const MovieContainer = ({ title, movies, isVertical, hideViewMore }: Props) => {
   return (
     <div>
       <div className="mx-10 py-2 flex items-center justify-between border-b border-b-gray-500 relative mb-4">
         <h2 className="text-sm uppercase font-bold tracking-wider mt-5">
           {title}
         </h2>
-        <Link
+        { hideViewMore ? <></> : 
+        (<Link
           href={{ pathname: "/viewmore", query: { title: title } }}
           className="bg-gray-800 text-xs text-white uppercase px-2 py-1 rounded-md border-indigo-600 font-semibold hover:bg-black duration-300"
         >
           View more
-        </Link>
+        </Link>)
+        }
         <span className="w-16 h-1 bg-purple-700 inline-block absolute left-0 -bottom-[1.5px] z-10" />
       </div>
       <div
