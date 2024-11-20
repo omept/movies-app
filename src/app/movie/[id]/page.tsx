@@ -65,7 +65,7 @@ const MovieDetails = ({ params }: Props) => {
     const movie = {
       id: details?.id,
       title: details?.title,
-      img: details?.backdrop_path,
+      backdrop_path: details?.backdrop_path,
       release_date: details?.release_date,
       vote_average: details?.vote_average,
     };
@@ -97,7 +97,7 @@ const MovieDetails = ({ params }: Props) => {
     );
     localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
     alert("Removed from favourites.");
-    setIsFavorite(true);
+    setIsFavorite(false);
   };
 
   const favBlock = (details: any, delFromFav: (id: string | number) => void, addToFav: (details: any) => void) => {
